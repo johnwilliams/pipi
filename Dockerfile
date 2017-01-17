@@ -1,5 +1,7 @@
 FROM johnwilliams/rpi-ruby:16.04
 
+RUN apt-get update && apt-get install -y libmysqlclient-dev mysql-client
+
 ENV APP_HOME /app
 ENV HOME /root
 RUN mkdir $APP_HOME
