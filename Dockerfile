@@ -1,4 +1,4 @@
-FROM johnwilliams/rpi-ruby:xenial
+FROM johnwilliams/rpi-ruby:16.04
 
 ENV APP_HOME /app
 ENV HOME /root
