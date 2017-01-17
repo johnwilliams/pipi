@@ -27,6 +27,7 @@ spec:
           ]
     spec:
       terminationGracePeriodSeconds: 60
+      hostNetwork: true
       nodeSelector:
         nginx-controller: "traefik"
       containers:
