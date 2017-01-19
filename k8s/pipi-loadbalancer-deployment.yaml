@@ -54,12 +54,12 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: pipi 
+  name: pipi-app
 spec:
   rules:
   - http:
       paths:
       - path: /
         backend:
-          serviceName: pipi
+          serviceName: pipi-app
           servicePort: 3000

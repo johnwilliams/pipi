@@ -6,7 +6,7 @@ metadata:
     app: pipi
 spec:
   ports:
-    - port: 3306
+    - port: 3000
   selector:
     app: pipi
     tier: app
@@ -19,6 +19,7 @@ metadata:
   labels:
     app: pipi
 spec:
+  replicas: 3
   strategy:
     type: Recreate
   template:
