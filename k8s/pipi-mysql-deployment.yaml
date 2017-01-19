@@ -12,19 +12,6 @@ spec:
     tier: mysql
   clusterIP: None
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mysql-pv-claim
-  labels:
-    app: pipi
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 500Mb
----
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -41,23 +28,19 @@ spec:
         tier: mysql
     spec:
       containers:
-      - image: docker pull hypriot/rpi-mysql
+      - image: hypriot/rpi-mysql
         name: mysql
         env:
           # $ kubectl create secret generic mysql-pass --from-file=password.txt
           # make sure password.txt does not have a trailing newline
         - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-pass
-              key: password.txt
+          value: "314159265359"
+        - name: MYSQL_DATABASE
+          value: "pipi_production"
+        - name: MYSQL_USER
+          value: "pipi"
+        - name: MYSQL_PASSWORD
+          value: "ilikepi"
         ports:
         - containerPort: 3306
           name: mysql
-        volumeMounts:
-        - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql
-      volumes:
-      - name: mysql-persistent-storage
-        persistentVolumeClaim:
-          claimName: mysql-pv-claim

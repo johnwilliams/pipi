@@ -49,6 +49,7 @@ test:
 #
 production:
   <<: *default
+  host: pipi-mysql
   database: pipi_production
   username: pipi
   password: <%= ENV['PIPI_DATABASE_PASSWORD'] %>

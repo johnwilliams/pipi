@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pipi-app
+  labels:
+    app: pipi
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: pipi
+    tier: app
+  clusterIP: None
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pipi-app
+  labels:
+    app: pipi
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: pipi
+        tier: app
+    spec:
+      containers:
+      - image: johnwilliams/pipi-app:latest
+        name: pipi-app
+        env:
+          # $ kubectl create secret generic mysql-pass --from-file=password.txt
+          # make sure password.txt does not have a trailing newline
+        - name: RAILS_ENV
+          value: "production"
+        - name: SECRET_KEY_BASE
+          value: "pipipipipipipipipipipipipipipipipipipipipipipipipipipipipipi"
+        - name: PIPI_DATABASE_PASSWORD
+          value: "ilikepi"
+        ports:
+        - containerPort: 3000
+          name: pipi-app
