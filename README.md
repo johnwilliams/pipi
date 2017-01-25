@@ -47,6 +47,11 @@ kube-system   kube-proxy-rdjnz                        1/1       Running   0     
 kube-system   kube-scheduler-pi-k8s-master            1/1       Running   0          8m
 ```
 
+## Deploy MySQL
+As of today flannel is the only network driver that works on Rpi
+```kubectl create -f k8s/pipi-mysql-deployment.yaml
+```
+
 ## Deploy Rails App
 As of today flannel is the only network driver that works on Rpi
 ```kubectl create -f k8s/pipi-app-deployment.yaml
@@ -58,11 +63,6 @@ As of today flannel is the only network driver that works on Rpi
 ```
 Now that the LB is deployed you will need to assign it to a node.
 ```kubectl label node pi-k8s-node1 nginx-controller=traefik
-```
-
-## Deploy MySQL
-As of today flannel is the only network driver that works on Rpi
-```kubectl create -f k8s/pipi-mysql-deployment.yaml
 ```
 
 ## List app tier pods:

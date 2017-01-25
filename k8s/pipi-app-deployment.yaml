@@ -10,7 +10,6 @@ spec:
   selector:
     app: pipi
     tier: app
-  clusterIP: None
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
