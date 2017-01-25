@@ -27,7 +27,42 @@ pi-k8s-node3    Ready          6s
 
 ## Setup Network Driver (flannel)
 As of today flannel is the only network driver that works on Rpi
-```curl -sSL https://rawgit.com/coreos/flannel/master/Documentation/kube-flannel.yml | sed "s/amd64/arm/g" | kubectl create -f -
+```kubectl create -f k8s/flannel.yaml
+```
+
+## Check Pod Status
+At this point all of your pods should be running (maybe sill creating).  
+```$ kubectl get po --all-namespaces
+NAMESPACE     NAME                                    READY     STATUS    RESTARTS   AGE
+kube-system   dummy-2501624643-pw7hc                  1/1       Running   0          8m
+kube-system   etcd-pi-k8s-master                      1/1       Running   0          9m
+kube-system   kube-apiserver-pi-k8s-master            1/1       Running   0          8m
+kube-system   kube-controller-manager-pi-k8s-master   1/1       Running   0          9m
+kube-system   kube-discovery-1659614412-wzknn         1/1       Running   0          8m
+kube-system   kube-dns-4211557627-vst3z               4/4       Running   0          6m
+kube-system   kube-flannel-ds-k21ll                   2/2       Running   0          3m
+kube-system   kube-flannel-ds-zq22w                   2/2       Running   0          3m
+kube-system   kube-proxy-nctpq                        1/1       Running   0          3m
+kube-system   kube-proxy-rdjnz                        1/1       Running   0          6m
+kube-system   kube-scheduler-pi-k8s-master            1/1       Running   0          8m
+```
+
+## Deploy Rails App
+As of today flannel is the only network driver that works on Rpi
+```kubectl create -f k8s/pipi-app-deployment.yaml
+```
+
+## Deploy Load Balancer
+As of today flannel is the only network driver that works on Rpi
+```kubectl create -f k8s/pipi-loadbalancer-deployment.yaml
+```
+Now that the LB is deployed you will need to assign it to a node.
+```kubectl label node pi-k8s-node1 nginx-controller=traefik
+```
+
+## Deploy MySQL
+As of today flannel is the only network driver that works on Rpi
+```kubectl create -f k8s/pipi-mysql-deployment.yaml
 ```
 
 ## List app tier pods:
